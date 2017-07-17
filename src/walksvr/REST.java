@@ -17,7 +17,7 @@ public class REST {
 				//Task2.run();
 				Timer t2 = new Timer();
 				//t2.cancel();
-				t2.scheduleAtFixedRate(Task2, 5000, 10000); 
+				t2.scheduleAtFixedRate(Task2, 4000, 10000); 
 				// run this call every 30 seconds until the start of the meeting
 				//every 30 secs because you never know when the pc is started up
 				
