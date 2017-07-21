@@ -17,10 +17,7 @@ class GetMeetings extends TimerTask{
 
 	public GetMeetings(){
 	     //this tasks reads the GET call from walks VR
-		//will run every 5min
-		// also fills up the next.meeting.txt with the upcoming meeting details
-		   // need to loop through the loaded up meetings and get the relevant (walker.1)
-		   //
+		// then fills up the next.meeting.txt with the upcoming meeting details
 	   }
 
 	   public void run() {

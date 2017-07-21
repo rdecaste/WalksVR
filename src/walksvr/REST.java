@@ -13,11 +13,11 @@ public class REST {
 				Timer t1 = new Timer();
 				t1.scheduleAtFixedRate(Task1, 0, 300000);*/
 		
-				StartMeeting Task2 = new StartMeeting();
+				StartMeeting Task2 = new StartMeeting() ;
 				//Task2.run();
 				Timer t2 = new Timer();
 				//t2.cancel();
-				t2.scheduleAtFixedRate(Task2, 4000, 10000); 
+				t2.scheduleAtFixedRate(Task2, 0, 10000); 
 				// run this call every 30 seconds until the start of the meeting
 				//every 30 secs because you never know when the pc is started up
 				
