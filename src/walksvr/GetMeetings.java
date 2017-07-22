@@ -1,8 +1,13 @@
 package walksvr;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.TimerTask;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,7 +18,8 @@ import java.net.URL;
 
 class GetMeetings extends TimerTask{
 
-	   private BufferedWriter bw;
+	   private static final String FILENAME = "meeting.txt";
+	private BufferedWriter bw;
 
 	public GetMeetings(){
 	     //this tasks reads the GET call from walks VR
@@ -22,7 +28,8 @@ class GetMeetings extends TimerTask{
 
 	   public void run() {
 		   try {
-			   System.out.println("getmeetings");
+			   Date now = new Date();
+			  // System.out.println(now +" getmeetings");
 				URL url = new URL("http://walksvr.com/test/test.php?filename=test.txt");
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestMethod("GET");
@@ -56,7 +63,7 @@ class GetMeetings extends TimerTask{
 						fw.close();
 				 conn.disconnect();
 				 
-				
+				// System.out.println("get meetings done");
 				 
 				 /* System.out.println("Before ordering");
 				for (meeting start : meetings) {
@@ -101,5 +108,36 @@ class GetMeetings extends TimerTask{
 			  } 
 		   
 	   }
+
+	public List<meeting> get() throws IOException {
+		// TODO Auto-generated method stub
+		List<meeting> meetings = new ArrayList<>();
+		 BufferedReader br;
+		 URL url = new URL("http://walksvr.com/test/test.php?filename=test.txt");
+		 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Accept", "application/json");
+
+			if (conn.getResponseCode() != 200) {
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ conn.getResponseCode());
+			}
+
+			 br = new BufferedReader(new InputStreamReader(
+				(conn.getInputStream())));
+		try {
+				   for(String line; (line = br.readLine()) != null; ) {
+						 //parse the line to items
+
+						 meetings.add(new meeting(line));
+					  }
+			   
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  
+		return meetings;
+	}
 
 	}
