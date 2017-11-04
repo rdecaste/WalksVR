@@ -1,13 +1,10 @@
 package walksvr;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimerTask;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,19 +13,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-class GetMeetings extends TimerTask{
+class GetMeetings { // extends TimerTask{
 
-	   private static final String FILENAME = "meeting.txt";
 	private BufferedWriter bw;
-
-	public GetMeetings(){
-	     //this tasks reads the GET call from walks VR
-		// then fills up the next.meeting.txt with the upcoming meeting details
-	   }
-
-	   public void run() {
-		   try {
-			   Date now = new Date();
+	public void MeetingsFile() {
+		try {
 			  // System.out.println(now +" getmeetings");
 				URL url = new URL("http://walksvr.com/test/test.php?filename=test.txt");
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -47,14 +36,9 @@ class GetMeetings extends TimerTask{
 				FileWriter fw = new FileWriter("meeting.txt");
 				bw = new BufferedWriter(fw);
 				
-				//read the lines in and make them meetings
-				//List<meeting> meetings = new ArrayList<>();
 				 for(String line; (line = br.readLine()) != null; ) {
-					 //parse the line to items
 					 bw.write(line);
 					 bw.newLine();
-					 //System.out.println(line);
-					 //meetings.add(new meeting(line));
 				  }
 				 if (bw != null)
 						bw.close();
@@ -62,40 +46,6 @@ class GetMeetings extends TimerTask{
 				if (fw != null)
 						fw.close();
 				 conn.disconnect();
-				 
-				// System.out.println("get meetings done");
-				 
-				 /* System.out.println("Before ordering");
-				for (meeting start : meetings) {
-					System.out.println(start.start);
-				}*/
-				
-				//Collections.sort(meetings, new CustomComparator()); //order the meetings
-				
-			/*	System.out.println("After ordering");
-				for (meeting start : meetings) {
-					System.out.println("meeting Id:"+start.meeting_id+ " start: "+start.start);
-				}*/
-				
-				//write the upcoming meeting to the file
-				
-				// get meeting closest to now
-				
-
-			/*	Calendar now = Calendar.getInstance();
-				now.setTime(new Date());   
-				Calendar start = Calendar.getInstance();
-				start.setTime(meetings.get(0).start); */
-			   
-			 /*  if(now.after(next.start) && now.before(start.stop))
-			   {
-				   
-				System.out.println("meeting start: "+now.getTime());
-				System.out.println("meeting should be running now");
-			   }*/
-				    
-				//System.out.println("upcoming meeting:"+meetings.get(0).meeting_id+ " start: "+meetings.get(0).start);
-				//meetings.get(0).Writetofile();
 
 			  } catch (MalformedURLException e) {
 
@@ -108,9 +58,10 @@ class GetMeetings extends TimerTask{
 			  } 
 		   
 	   }
-
 	public List<meeting> get() throws IOException {
 		// TODO Auto-generated method stub
+		//this just gets the file from the server and reads it in (does not send to another file
+		this.MeetingsFile();
 		List<meeting> meetings = new ArrayList<>();
 		 BufferedReader br;
 		 URL url = new URL("http://walksvr.com/test/test.php?filename=test.txt");
