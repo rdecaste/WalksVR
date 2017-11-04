@@ -41,7 +41,7 @@ class GetMeetings { // extends TimerTask{
 					 bw.newLine();
 				  }
 				 if (bw != null)
-						bw.close();
+						bw.close();//test comment
 
 				if (fw != null)
 						fw.close();
